@@ -27,7 +27,8 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    users = User.joins(:orders, :items).select("users.name").distinct.pluck(:name)
+    # users = Order.joins(:items, :user).where('items.id = ?', @item_8.id).distinct('users.name').pluck('users.name')
+    users = User.select('users.name').joins(orders: :items).where('items.id = ?', @item_8.id).distinct.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
@@ -42,7 +43,7 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    names = Order.last.items.order(:name).pluck(:name)
+    names = Order.last.items.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
@@ -53,20 +54,21 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     expected_result = ['Giorgio Armani', 'Banana Republic', 'Izod', 'Fox']
 
     # ----------------------- Using Ruby -------------------------
-    items_for_user_3_third_order = []
-    grouped_orders = []
-    Order.all.each do |order|
-      if order.items
-        grouped_orders << order if order.user_id == @user_3.id
-      end
-    end
-    grouped_orders.each_with_index do |order, idx|
-      items_for_user_3_third_order = order.items.map(&:name) if idx == 2
-    end
+    # items_for_user_3_third_order = []
+    # grouped_orders = []
+    # Order.all.each do |order|
+    #   if order.items
+    #     grouped_orders << order if order.user_id == @user_3.id
+    #   end
+    # end
+    # grouped_orders.each_with_index do |order, idx|
+    #   items_for_user_3_third_order = order.items.map(&:name) if idx == 2
+    # end
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    items_for_user_3_third_order = User.joins(:orders, :items).where("users.name = 'Mugatu'").select("items.name").distinct
+    # items_for_user_3_third_order = Order.where("user_id = ?", @user_3.id).third.items.pluck(:name)
+    items_for_user_3_third_order = @user_3.orders[2].items.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation

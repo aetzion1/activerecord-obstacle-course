@@ -39,6 +39,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
 
     # ------------------ Using ActiveRecord ----------------------
     orders = Order.order("amount DESC")
+    orders = Order.order(amount: :desc)
     # ------------------------------------------------------------
 
     # Expectation
@@ -63,7 +64,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # Expectation
     expect(orders).to eq(expected_result)
   end
-
+#SEE COMMENT IN 12 BELOW
   it '12. should return all items except items 2, 5 and 6' do
     items_not_included = [@item_2, @item_5, @item_6]
     expected_result = [
@@ -77,6 +78,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
 
     # ------------------ Using ActiveRecord ----------------------
     # items = Item.where.not("items.id IN (?)", items_not_included)
+    # Would below filter out if order.id matches an item.id? 
     items = Item.where.not(id: items_not_included)
     # ------------------------------------------------------------
 
@@ -93,6 +95,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
+    order = Order.where(id: @order_3.id).first
     grouped_items = order.items.order(:name)
     # ------------------------------------------------------------
 
@@ -108,7 +111,7 @@ describe 'ActiveRecord Obstacle Course, Week 2' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    names = Item.all.pluck(:name)
+    names = Item.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
