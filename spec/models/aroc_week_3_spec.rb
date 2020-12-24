@@ -27,7 +27,7 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    users = User.joins(:orders, :items).select("users.name").distinct.pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
@@ -42,7 +42,7 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    names = Order.last.items.order(:name).pluck(:name)
     # ------------------------------------------------------------
 
     # Expectation
@@ -66,7 +66,7 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    items_for_user_3_third_order = User.joins(:orders, :items).where("users.name = 'Mugatu'").select("items.name").distinct
     # ------------------------------------------------------------
 
     # Expectation
