@@ -54,16 +54,16 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     expected_result = ['Giorgio Armani', 'Banana Republic', 'Izod', 'Fox']
 
     # ----------------------- Using Ruby -------------------------
-    # items_for_user_3_third_order = []
-    # grouped_orders = []
-    # Order.all.each do |order|
-    #   if order.items
-    #     grouped_orders << order if order.user_id == @user_3.id
-    #   end
-    # end
-    # grouped_orders.each_with_index do |order, idx|
-    #   items_for_user_3_third_order = order.items.map(&:name) if idx == 2
-    # end
+    items_for_user_3_third_order = []
+    grouped_orders = []
+    Order.all.each do |order|
+      if order.items
+        grouped_orders << order if order.user_id == @user_3.id
+      end
+    end
+    grouped_orders.each_with_index do |order, idx|
+      items_for_user_3_third_order = order.items.map(&:name) if idx == 2
+    end
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
@@ -81,7 +81,7 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # -----------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    average = Order.average(:amount)
     # ------------------------------------------------------------
 
     # Expectation
@@ -98,7 +98,7 @@ describe 'ActiveRecord Obstacle Course, Week 3' do
     # -----------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
-    # Solution goes here
+    average = @user_3.orders.average(:amount)
     # ------------------------------------------------------------
 
     # Expectation
